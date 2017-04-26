@@ -1,0 +1,167 @@
+%=========================================================
+\chapter{Modelo del Negocio}	
+\label{cap:reqSist}
+
+	En este capítulo se modela la {\em Arquitectura del negocio} la cual está conformada por la Ontología del negocio ({\em Términos} y {\em Hechos del negocio}), Arquitectura de procesos y las {\em Reglas del negocio}. Primero se especifica brevemente el {\em Contexto} en el que los términos tienen significado.
+	
+	En las secciones \ref{sec:terminosDeNegocio} y \ref{sec:hechosDeNegocio} se presentan los Términos del negocio a manera de Glosario y por último se presentan los Hechos del negocio a manera de relaciones entre términos del negocio.
+
+%----------------------------------------------------------
+\section{Contexto}
+
+	\cdtInstrucciones{El contexto debe explicar bajo que ambiente los términos del negocio son aplicables y proporcionar información general para su comprensión inicial.\\}
+	La empresa ``Fast Rent'' se dedica a la renta de vehículos automotores, principalmente automóviles y motocicletas. Los clientes rentan vehículos por tiempos determinados y la empresa se encarga de dar mantenimiento a los vehículos y administrarlos para que estén disponibles para sus clientes. Los empleados, se dedican a labores de gerencia, atención a clientes, mantenimiento y soporte para los vehículos activos.
+	
+%---------------------------------------------------------
+\section{Términos del Negocio}
+\label{sec:terminosDeNegocio}
+
+\begin{description}
+	% Ejemplo de un término literal.
+	\item[\hypertarget{tAutomovil}{Automóvil:}] ({\em es un tipo de \hyperlink{tVehiculo}{Vehículo}}) De cuatro ruedas con capacidad de 5 a 9 personas. 
+	% Ejemplo de un término de entidad
+	\item[\hypertarget{tCliente}{Cliente:}] Se refiere a todas las personas físicas y morales que \hyperlink{tRenta}{rentan} o han rentado un \hyperlink{tVehiculo}{vehículo}.
+	
+	\item[\hypertarget{tDirector}{Director:}] ({\em es un tipo de \hyperlink{tEmpleado}{Empleado}}) Es el empleado que tiene mayor rango de todos y no tiene superior, a diferencia de los demás.	
+	\item[\hypertarget{tEmpleado}{Empleado:}] Se refiere a cualquier persona que labore en la empresa.
+	
+	\item[\hypertarget{tChecador}{Checador:}] ({\em Reloj asociado al atributo:} Hora de entrada y salida de un \hyperlink{tEmpleado}{empleado}. {\em Frecuencia de lectura:} Una vez al día para la entrada y otra para la salida durante los días laborales.
+	
+	\item[\hypertarget{tMotocicleta}{Motocicleta:}] ({\em es un tipo de {tVehiculo}{Vehículo}}) De dos ruedas con capacidad para una personas. 
+
+	\item[\hypertarget{tRenta}{Renta:}] Se refiere al servicio que ofrece la empresa para prestar \hyperlink{tVehiculo}{vehículos} a los \hyperlink{tCliente}{clientes} por un tiempo definido.
+	
+	\item[\hypertarget{tVehiculo}{Vehiculo:}] Se refiere a los automóviles y motocicletas que la empresa usa para dar el servicio de renta a los \hyperlink{tCliente}{clientes}.
+	
+%	\brTermSensor{tVelocimetro}{Velocímetro:}{Velocidad de un Vehículo.}{Kilometros/hora.}{Constantemente siempre que el \cdtRef{tVehiculo}{vehículo} esté encendido.}
+\end{description}
+
+%----------------------------------------------------------
+\section{Modelo del dominio del problema}
+\label{sec:hechosDeNegocio}
+
+
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+\subsection{Modelo del dominio del problema}
+
+	El modelo del dominio del problema se muestra en la figura~\ref{fig:modeloDeDominio}, a continuación se describen cada una de las entidades y sus relaciones.
+	
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[angle=90,width=.95\textwidth]{images/modeloDelDominioDelProblema}
+		\caption{Modelo del dominio del problema}
+		\label{fig:modeloDeDominio}
+	\end{center}
+\end{figure}
+
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+\newenvironment{cdtEntidad}[2]{%
+	\def \varBusinessEntityId{#2}%
+	\hypertarget{#1}{\hspace{1pt}}%
+	\newline%
+	\noindent{\includegraphics[width=\textwidth]{images/uc/classRule}}%
+	\vspace{-25pt}%
+	\subsection{Entidad: #2}%
+	\noindent\begin{longtable}{|p{.2\textwidth}| p{.15\textwidth} | p{.46\textwidth} |p{.08\textwidth} |}%
+	\hline%
+	\multicolumn{4}{|c|}{{\cellcolor{colorSecundario}\color{white}Atributos}}\\ \hline%
+	{\cellcolor{colorAgua}Nombre} &%
+	{\cellcolor{colorAgua}Tipo} &%
+	{\cellcolor{colorAgua}Descripción} &%
+	{\cellcolor{colorAgua}Requerido}%
+	\\ \hline%
+	\endhead%
+}{%
+	\end{longtable}%
+}
+
+\newcommand{\brAttr}[5]{%
+	{\bf\hypertarget{\varBusinessEntityId:#1}{#2}} & {\em{#3}} & {#4} & #5 \\\hline
+}
+
+\newcommand{\cdtEntityRelSection}{%
+	\multicolumn{4}{|c|}{{\cellcolor{colorSecundario}\color{white}Relaciones}}\\ \hline%
+	{\cellcolor{colorAgua}Tipo de relación} &%
+	{\cellcolor{colorAgua}Entidad} &%
+	\multicolumn{2}{|c|}{{\cellcolor{colorAgua}Rol}}
+	\\ \hline%
+}
+
+\newcommand{\brRelComposition}{{\color{colorPrincipal}$\Diamondblack$\hspace{-1pt}---Composición}}
+\newcommand{\brRelAgregation}{{\color{colorPrincipal}$\Diamond$\hspace{-1pt}---Agregación}}
+\newcommand{\brRelGeneralization}{{\color{colorPrincipal}$\lhd$\hspace{-1pt}---Generalización}}
+
+\newcommand{\brRel}[3]{%
+	{\em{#1}} & {\bf{#2}} & \multicolumn{2}{|l|}{#3}\\\hline
+}
+
+
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+\begin{cdtEntidad}{Alumno}{Alumno}
+	\brAttr{registro}{Registro}{Id}{Número de registro utilizado para identificar un alumno}{Sí}
+	\brAttr{nombre}{Nombre}{Palabra Corta}
+		{Nombre o nombres del alumno.}{Sí}
+	\brAttr{primerApellido}{Primer apellido}{Palabra Corta}
+		{Primer apellido del alumno.}{Sí}
+	\brAttr{segundoApellido}{Segundo apellido}{Palabra Corta}
+		{Segundo apellido del alumno.}{No}
+	\brAttr{CURP}{CURP}{CURP}
+		{CURP del alumno.}{Sí}
+	\brAttr{nacimiento}{Nacimiento}{Fecha}
+		{Fecha de nacimiento del alumno.}{Sí}
+	\brAttr{genero}{Género}{Domicilio}
+		{Género del alumno.}{No}
+	\brAttr{telefono}{Teléfono}{Telefono}
+		{Teléfono para contactar al alumno.}{Sí}
+	\brAttr{correo}{Correo}{Correo}
+		{Correo del alumno para enviar información académica y escolar y para recuperación de clave de acceso.}{Sí}
+	\cdtEntityRelSection
+	\brRel{\brRelComposition}{Domicilio}{Un \hyperlink{Alumno}{Alumno} reside en un \hyperlink{Domicilio}{Domicilio}}	
+	\brRel{\brRelAgregation}{Grupo}{Un \hyperlink{Alumno}{Alumno} toma un \hyperlink{Curso}{Curso}}	
+\end{cdtEntidad}
+
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+\begin{cdtEntidad}{AlumnoExtranjero}{Alumno Extranjero}%{}
+	\brAttr{numeroResidente}{Numero de residente}{Id}{Número de registro dado por la Secretaría de Relaciones Exteriores a los extranjeros.}{Si}
+	\brAttr{paisOrigen}{Pais origen}{\hyperlink{Pais}{País}}
+		{País de origen del alumno extranjero.}{Sí}
+	\cdtEntityRelSection
+	\brRel{\brRelAgregation}{País}{Un \hyperlink{Alumno}{Alumno} es originario de un \hyperlink{Pais}{Pais}}	
+	\brRel{\brRelGeneralization}{Alumno}{Un \hyperlink{AlumnoExtranjero}{Alumno Extranjero} es un  \hyperlink{Alumno}{Alumno}}	
+\end{cdtEntidad}
+
+%---------------------------------------------------------
+\section{Modelado de Reglas de negocio}
+
+\input{3-1-reglas}
+
+%---------------------------------------------------------
+\section{Modelo de Procesos AS-IS}
+
+En esta sección se describen los procesos a mejorar con el sistema.
+
+\input{proc/proc01.tex}
+\input{proc/proc02.tex}
+%\input{proc/proc03.tex}
+%\input{proc/proc04.tex}
+
+%---------------------------------------------------------
+\section{Modelo de procesos TO-BE}
+
+Los nuevos procesos se presentan en esta sección, el mapa de procesos de se muestra en la figura~\ref{fig:mapaProc}.
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=.8\textwidth]{images/mapaProc}
+		\caption{Mapa de procesos}
+		\label{fig:mapaProc}
+	\end{center}
+\end{figure}
+
+
+\input{proc/proc-m01.tex}
+%\input{proc/proc-m02.tex}
+%\input{proc/proc-m03.tex}
+%\input{proc/proc-m04.tex}
+
